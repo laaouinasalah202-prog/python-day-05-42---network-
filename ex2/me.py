@@ -21,7 +21,7 @@ class InputStage:
         if not data:
             raise ValueError("Invalid data format")
         # Simulate parsing
-        return {"raw_data": data, "parsed": True, "timestamp": time.time()}
+        return {"raw_data": data, "parsed": True, "timestamp":   time.time()}
 
 
 class TransformStage:
@@ -141,12 +141,12 @@ class NexusManager:
         print("\n=== Pipeline Chaining Demo ===")
         print("Pipeline A -> Pipeline B -> Pipeline C")
         print("Data flow: Raw -> Processed -> Analyzed -> Stored")
-        
+
         start_time = time.time()
         # Simulated chaining processing
         duration = 0.2
         efficiency = 95
-        
+
         print(f"\nChain result: {data_count} records processed through 3-stage pipeline")
         print(f"Performance: {efficiency}% efficiency, {duration}s total processing time")
 
@@ -162,14 +162,14 @@ def main() -> None:
     json_pipeline.add_stage(InputStage())
     json_pipeline.add_stage(TransformStage())
     json_pipeline.add_stage(OutputStage())
-    
+
     nexus.add_pipeline("JSON", json_pipeline)
 
     print("=== Multi-Format Data Processing ===")
-    
+
     # 1. JSON Processing
     nexus.process_data("JSON", {"sensor": "temp", "value": 23.5, "unit": "C"})
-    
+
     # 2. CSV Processing (Reusing stages via polymorphism)
     csv_pipeline = CSVAdapter("CSV_CORE_01")
     csv_pipeline.add_stage(InputStage())
