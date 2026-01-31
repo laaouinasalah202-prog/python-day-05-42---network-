@@ -170,27 +170,27 @@ def main() -> None:
     # 1. JSON Processing
     nexus.process_data("JSON", {"sensor": "temp", "value": 23.5, "unit": "C"})
 
-    # 2. CSV Processing (Reusing stages via polymorphism)
-    csv_pipeline = CSVAdapter("CSV_CORE_01")
-    csv_pipeline.add_stage(InputStage())
-    csv_pipeline.add_stage(OutputStage())
-    nexus.add_pipeline("CSV", csv_pipeline)
-    nexus.process_data("CSV", "user,action,timestamp")
+    # # 2. CSV Processing (Reusing stages via polymorphism)
+    # csv_pipeline = CSVAdapter("CSV_CORE_01")
+    # csv_pipeline.add_stage(InputStage())
+    # csv_pipeline.add_stage(OutputStage())
+    # nexus.add_pipeline("CSV", csv_pipeline)
+    # nexus.process_data("CSV", "user,action,timestamp")
 
-    # 3. Stream Processing
-    stream_pipeline = StreamAdapter("STREAM_CORE_01")
-    stream_pipeline.add_stage(InputStage())
-    stream_pipeline.add_stage(OutputStage())
-    nexus.add_pipeline("Stream", stream_pipeline)
-    nexus.process_data("Stream", "Real-time sensor stream")
+    # # 3. Stream Processing
+    # stream_pipeline = StreamAdapter("STREAM_CORE_01")
+    # stream_pipeline.add_stage(InputStage())
+    # stream_pipeline.add_stage(OutputStage())
+    # nexus.add_pipeline("Stream", stream_pipeline)
+    # nexus.process_data("Stream", "Real-time sensor stream")
 
-    # Demonstrate Chaining
-    nexus.demonstrate_chaining(100)
+    # # Demonstrate Chaining
+    # nexus.demonstrate_chaining(100)
 
-    # Demonstrate Error Recovery
-    nexus.process_data("JSON", "TRIGGER_FAILURE")
+    # # Demonstrate Error Recovery
+    # nexus.process_data("JSON", "TRIGGER_FAILURE")
 
-    print("\nNexus Integration complete. All systems operational.")
+    # print("\nNexus Integration complete. All systems operational.")
 
 
 if __name__ == "__main__":
