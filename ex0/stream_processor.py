@@ -1,6 +1,7 @@
 from typing import Any, List, Dict, Union, Optional
 from abc import ABC, abstractmethod
 
+
 class DataProcessor(ABC):
     @abstractmethod
     def process(self, data: Any) -> str:
@@ -9,7 +10,7 @@ class DataProcessor(ABC):
     @abstractmethod
     def validate(self, data: Any) -> bool:
         return True
-        
+
     def format_output(self, result: str) -> str:
         return result
 
@@ -21,7 +22,7 @@ class NumericProcessor(DataProcessor):
             for i in data:
                 int(i)
             return True
-        except ValueError: 
+        except ValueError:
             return False
 
     def process(self, data: list[int]) -> str:
@@ -30,10 +31,11 @@ class NumericProcessor(DataProcessor):
         else:
             print("Processing data:  invalid input")
             return "Numeric data not verified because of Incorrect data type"
-        
+
     def format_output(self, result: str) -> str:
         res = result.split()
-        return f"Output: Processed {res[0]} numeric values, sum={res[1]}, avg={res[2]}"
+        return f"Processed {res[0]} numeric values, sum={res[1]}, avg={res[2]}"
+
 
 class TextProcessor(DataProcessor):
 
@@ -53,14 +55,14 @@ class TextProcessor(DataProcessor):
 
     def format_output(self, result: str) -> str:
         r = result.split()
-        
-        return f"Output: Processed text: {r[0]} characters, {r[1]} words"
+
+        return f"Processed text: {r[0]} characters, {r[1]} words"
 
 
 class LogProcessor(DataProcessor):
 
     def validate(self, data: str) -> bool:
-        valide = ("ERROR","WARNING", "ALERT", "INFO", "FATAL")
+        valide = ("ERROR", "WARNING", "ALERT", "INFO", "FATAL")
         if not isinstance(data, str):
             return False
         if any(data.startswith(i) for i in valide):
@@ -73,26 +75,27 @@ class LogProcessor(DataProcessor):
             return "[ALERT] ERROR level detected: Connection timeout"
         if data.startswith("INFO"):
             return "[INFO] INFO level detected: System ready"
-    
+
     def format_output(self, result):
         return f"{result}"
 
-# print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===\n")
-# print("Initializing Numeric Processor...")
-# data =  [1, 2, 3, 4, 5]
-# num = NumericProcessor()
-# i = num.process(data)
-# print(f"Processing data: {data}")
-# if num.validate(data):
-#     print("Validation: Numeric data verified")
-# else:
-#     print("Validation : data not verified")
-# print(num.format_output(i))
+
+print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===\n")
+print("Initializing Numeric Processor...")
+data = [1, 2, 3, 4, 5]
+num = NumericProcessor()
+i = num.process(data)
+print(f"Processing data: {data}")
+if num.validate(data):
+    print("Validation: Numeric data verified")
+else:
+    print("Validation : data not verified")
+print(num.format_output(i))
 
 print("\nInitializing Text Processor...")
 
 text = TextProcessor()
-data1 =  "Hello Nexus World"
+data1 = "Hello Nexus World"
 print(f"Processing data: {data1}")
 j = text.process(data1)
 if text.validate(data1):
@@ -105,12 +108,12 @@ else:
 print("\nInitializing Log Processor...")
 
 log = LogProcessor()
-l = log.process("ERROR: Connection timeout")
-data2 ="ERROR: Connection timeout"
+# l = log.process("ERROR: Connection timeout")
+data2 = "ERROR: Connection timeout"
 print(f"Processing data: {data2}")
 if log.validate("ERROR"):
     print("Validation: Log entry verified")
-    print(f"Output: [ALERT] ERROR level detected: Connection timeout")
+    print("Output: [ALERT] ERROR level detected: Connection timeout")
 else:
     print("validation: ")
 
@@ -130,3 +133,4 @@ result3 = LogProcessor()
 d3 = "INFO : system ready"
 r3 = result3.process(d3)
 print(f"Result 3: {result3.format_output(r3)}")
+print("\nFoundation systems online. Nexus ready for advanced streams.")
