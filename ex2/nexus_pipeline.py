@@ -1,4 +1,4 @@
-from typing import Any, List, Dict, Union, Optional, Protocol
+from typing import Any, List, Dict, Protocol
 from abc import ABC, abstractmethod
 
 
@@ -30,7 +30,7 @@ class OutputStage:
 
 
 class ProcessingPipeline(ABC):
-    def __init__(self):
+    def __init__(self) -> None:
         self.stages: List[Any] = []
         self.stats = {"processed": 0, "errors": 0}
 
@@ -42,7 +42,7 @@ class ProcessingPipeline(ABC):
         pass
 
 
-class JSONAdapter(ProcessingPipeline): 
+class JSONAdapter(ProcessingPipeline):
     def __init__(self, pipeline_id: str) -> None:
         super().__init__()
         self.pipeline_id = pipeline_id
@@ -52,7 +52,7 @@ class JSONAdapter(ProcessingPipeline):
             current_data = data
             for stage in self.stages:
                 current_data = stage.process(current_data)
-     
+
             self.stats["processed"] += 1
             a = (current_data.split("'value': ")[1].split(", ")[0])
             print("Transform: Enriched with metadata and validation")
@@ -63,7 +63,7 @@ class JSONAdapter(ProcessingPipeline):
 
 
 class CSVAdapter(ProcessingPipeline):
-    def __init__(self, pipeline_id):
+    def __init__(self, pipeline_id: str) -> None:
         super().__init__()
         self.pipeline_id = pipeline_id
 
@@ -82,7 +82,7 @@ class CSVAdapter(ProcessingPipeline):
 
 
 class StreamAdapter(ProcessingPipeline):
-    def __init__(self, pipeline_id):
+    def __init__(self, pipeline_id: str) -> None:
         super(). __init__()
         self.pipeline_id = pipeline_id
 
@@ -106,7 +106,7 @@ class NexusManager:
     def add_pipline(self, pip: ProcessingPipeline):
         self.piplines.append(pip)
 
-    def process_data(self, pip: ProcessingPipeline, data: str):
+    def process_data(self, pip: ProcessingPipeline, data: str) -> None:
         if pip in self.piplines:
             if data != "TRIGGER_FAILURE":
                 print(f"input: {data}")

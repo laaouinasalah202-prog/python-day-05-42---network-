@@ -3,7 +3,7 @@ from typing import Any, List, Dict, Union, Optional
 
 
 class DataStream(ABC):
-    def __init__(self, ID):
+    def __init__(self, ID: str) -> None:
         self.ID = ID
         self.err = 0
 
@@ -27,14 +27,13 @@ class DataStream(ABC):
         return [
             {
                 "stream_id": self.ID,
-                "type": self.type_dat,
                 "Error_count": self.err
             }
         ]
 
 
 class SensorStream(DataStream):
-    def __init__(self, ID: str):
+    def __init__(self, ID: str) -> None:
         super().__init__(ID)
         self.type_data = "Environmental Data"
         self.temp_readings = []

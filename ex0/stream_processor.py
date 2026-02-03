@@ -1,11 +1,11 @@
-from typing import Any, List, Dict, Union, Optional
+from typing import Any
 from abc import ABC, abstractmethod
 
 
 class DataProcessor(ABC):
     @abstractmethod
     def process(self, data: Any) -> str:
-        return "test"
+        pass
 
     @abstractmethod
     def validate(self, data: Any) -> bool:
@@ -47,7 +47,7 @@ class TextProcessor(DataProcessor):
         except ValueError:
             return False
 
-    def process(self, data):
+    def process(self, data: Any) -> str:
         if self.validate(data):
             return f"{len(data)} {len(data.split())}"
         else:
@@ -70,13 +70,13 @@ class LogProcessor(DataProcessor):
         else:
             return False
 
-    def process(self, data):
+    def process(self, data: Any) -> str:
         if data.startswith("ERROR"):
             return "[ALERT] ERROR level detected: Connection timeout"
         if data.startswith("INFO"):
             return "[INFO] INFO level detected: System ready"
 
-    def format_output(self, result):
+    def format_output(self, result: str) -> str:
         return f"{result}"
 
 
@@ -108,7 +108,6 @@ else:
 print("\nInitializing Log Processor...")
 
 log = LogProcessor()
-# l = log.process("ERROR: Connection timeout")
 data2 = "ERROR: Connection timeout"
 print(f"Processing data: {data2}")
 if log.validate("ERROR"):
